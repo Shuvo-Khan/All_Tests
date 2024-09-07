@@ -1,5 +1,5 @@
-import 'package:first_project/presentation/widgets/responsive_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:first_project/product_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,318 +9,290 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Product> productList = [
+    Product(
+        name: 'Pullover',
+        color: ' Black',
+        size: ' L',
+        price: 51,
+        image: 'assets/images/blacktshirt1.png'),
+    Product(
+        name: 'T - Shirt',
+        color: ' Gray',
+        size: ' L',
+        price: 30,
+        image: 'assets/images/blacktshirt1.png'),
+    Product(
+        name: 'Sport Dress',
+        color: ' Black',
+        size: ' M',
+        price: 43,
+        image: 'assets/images/flutter1.png'),
+  ];
+
+  int totalPrice = 0;
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-        mobile: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: const Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Check out'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'My Bag',
+              style: TextStyle(
+                fontSize: 33,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+                child: ListView.builder(
+                    itemCount: productList.length,
+                    itemBuilder: (context, index) {
+                      Product product = productList[index];
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Material(
+                                elevation: 10,
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                  height: 120,
+                                  width: 370,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    shape: BoxShape.rectangle,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        product.image,
+                                        width: 120,
+                                        height: 115,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 15, left: 15),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  product.name,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16),
+                                                ),
+                                                SizedBox(
+                                                  width: 120,
+                                                ),
+                                                Icon(
+                                                  Icons.more_vert,
+                                                  color: Colors.black38,
+                                                )
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  'Color : ',
+                                                  style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  product.color,
+                                                  style: const TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 7,
+                                                ),
+                                                const Text(
+                                                  'Size : ',
+                                                  style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  product.size,
+                                                  style: const TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 18,
+                                                  backgroundColor:
+                                                      Colors.black12,
+                                                  child: IconButton(
+                                                      onPressed: () =>
+                                                          _onTapMinusButton(
+                                                              index),
+                                                      icon: const Icon(
+                                                        Icons.remove,
+                                                        size: 18,
+                                                      )),
+                                                ),
+                                                const SizedBox(
+                                                  width: 15,
+                                                ),
+                                                Text(
+                                                  productList[index]
+                                                      .quantity
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  width: 15,
+                                                ),
+                                                CircleAvatar(
+                                                  radius: 18,
+                                                  backgroundColor:
+                                                      Colors.black12,
+                                                  child: IconButton(
+                                                      onPressed: () =>
+                                                          _onTapPlusButton(
+                                                              index),
+                                                      icon: const Icon(
+                                                        Icons.add,
+                                                        size: 18,
+                                                      )),
+                                                ),
+                                                const SizedBox(
+                                                  width: 50,
+                                                ),
+                                                Text(
+                                                  '${productList[index].modeltotalPrice.toString()}\$',
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                        ],
+                      );
+                    })),
+            const SizedBox(
+              height: 130,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                const Text(
+                  'Total amount: ',
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                ),
+                const SizedBox(
+                  width: 190,
+                ),
                 Text(
-                  'HUMMING\nBIRD .',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ],
-            ),
-          ),
-          drawer: Drawer(
-            child: Column(
-              children: [
-                Container(
-                  height: 200,
-                  width: 400,
-                  color: Colors.greenAccent.shade200,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'SKILL UP NOW',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Text(
-                        'TAP HERE',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
+                  '${totalPrice}\$',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                  alignment: Alignment.center,
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 56,
-                    ),
-                    Icon(
-                      Icons.ondemand_video_sharp,
-                    ),
-                    SizedBox(width: 32),
-                    Text(
-                      'Episodes',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 56,
-                    ),
-                    Icon(
-                      Icons.message,
-                    ),
-                    SizedBox(width: 32),
-                    Text(
-                      'About',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    )
-                  ],
                 ),
               ],
             ),
-          ),
-          body: _buildForMobile(),
-        ),
-        tablet: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: const Text(
-              'HUMMING\nBIRD .',
-              style: TextStyle(
-                fontSize: 20,
-              ),
+            const SizedBox(
+              height: 10,
             ),
-            actions: [
-              const Text(
-                'Episodes',
-                style: TextStyle(fontSize: 16),
+            Padding(
+              padding: const EdgeInsets.only(left: 24.0),
+              child: SizedBox(
+                width: 340,
+                height: 50,
+                child: ElevatedButton(
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content:
+                            Text('Your have suceesfully paid ${totalPrice}\$'),
+                      ));
+                    },
+                    child: const Text(
+                      'CHECK OUT',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    )),
               ),
-              const SizedBox(
-                width: 40,
-              ),
-              const Text(
-                'About',
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(
-                width: 50,
-              ),
-            ],
-          ),
-          body: _buildForTablet(),
-        ),
-        desktop: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            leading: const Padding(padding: EdgeInsets.all(60)),
-            title: const Text(
-              'HUMMING\nBIRD .',
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            actions: [
-              const Text(
-                'Episodes',
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(
-                width: 50,
-              ),
-              const Text(
-                'About',
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(
-                width: 60,
-              ),
-            ],
-          ),
-          body: _buildForDesktop(),
+            )
+          ],
         ));
   }
 
-  Center _buildForMobile() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'FLUTTER WEB.\n  THE BASICS',
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            'In this course we will go over the basics of using\nFlutter Web'
-            ' for development. Topics will include\nResponsive Layout, Deploying,'
-            'Font changes, Hover\nfunctionality, Modals and more.',
-            style: TextStyle(
-              fontSize: 16,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 80,
-          ),
-          SizedBox(
-            height: 42,
-            width: 310,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.greenAccent.shade200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Join course',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+  void _onTapMinusButton(int index) {
+    if (productList[index].quantity > 0) {
+      setState(() {
+        productList[index].quantity--;
+        productList[index].modeltotalPrice =
+            productList[index].quantity * productList[index].price;
+        if (totalPrice >= 0) {
+          totalPrice -= productList[index].price;
+        }
+      }); //totalPrice = pullOverTotalPrice + tShirtTotalPrice + sportTotalPrice;
+    }
   }
 
-  Center _buildForTablet() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'FLUTTER WEB.\n  THE BASICS',
-            style: TextStyle(fontSize: 60, fontWeight: FontWeight.w900),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            'In this course we will go over the basics of using\nFlutter Web'
-            ' for development. Topics will include\nResponsive Layout, Deploying,'
-            'Font changes, Hover\nfunctionality, Modals and more.',
-            style: TextStyle(
-              fontSize: 20,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 80,
-          ),
-          SizedBox(
-            height: 42,
-            width: 160,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.greenAccent.shade200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Join course',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Padding _buildForDesktop() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 60),
-      child: Row(
-        children: [
-          const Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'FLUTTER WEB.\nTHE BASICS',
-                    style: TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'In this course we will go over the basics of using\nFlutter Web'
-                    ' for development. Topics will include\nResponsive Layout, Deploying,'
-                    'Font changes, Hover\nfunctionality, Modals and more.',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.start,
-                    maxLines: 4,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 200,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 42,
-                width: 165,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.greenAccent.shade200,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Join course',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
+  void _onTapPlusButton(int index) {
+    setState(() {
+      productList[index].quantity++;
+      productList[index].modeltotalPrice =
+          productList[index].quantity * productList[index].price;
+      totalPrice += productList[index].price;
+    });
   }
 }
