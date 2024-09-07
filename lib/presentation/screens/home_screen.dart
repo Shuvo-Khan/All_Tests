@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         price: 30,
         image: 'assets/images/blacktshirt1.png'),
     Product(
-        name: 'Sport Dress',
+        name: 'SportDres',
         color: ' Black',
         size: ' M',
         price: 43,
