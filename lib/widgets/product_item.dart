@@ -57,7 +57,9 @@ class ProductItem extends StatelessWidget {
   Future<void> _deleteProduct(BuildContext context) async {
     Uri uri = Uri.parse('http://164.68.107.70:6060/api/v1/DeleteProduct/' + product.id);
     Response response = await get(uri);
-    ScaffoldMessenger.of(context)
-        .showSnackBar( SnackBar(content: Text('Product deleted successfully')));
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar( SnackBar(content: Text('Product deleted successfully')));
+    }
   }
 }
