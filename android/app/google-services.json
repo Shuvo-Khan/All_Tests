@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1027398944518",
+    "project_id": "ostad-flutter-282d3",
+    "storage_bucket": "ostad-flutter-282d3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027398944518:android:fa842e25c6bef3bd5a4087",
+        "android_client_info": {
+          "package_name": "com.example.assignment_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAb5IrX6776bSDKq-G-as7jr9ZxGYYyVgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
